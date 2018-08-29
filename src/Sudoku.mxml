@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:components="com.sudoku.view.components.*"
+               initialize="initializeHandler(event)">
+
+    <fx:Script><![CDATA[
+
+        import com.sudoku.model.SudokuModel;
+
+        import mx.events.FlexEvent;
+
+        [Bindable]
+        private var sudokuModel:SudokuModel;
+
+        private function initializeHandler(event:FlexEvent):void
+        {
+            sudokuModel = new SudokuModel();
+        }
+
+    ]]></fx:Script>
+
+    <components:SudokuComponent id="sudokuComponent"
+                                items="{sudokuModel.sudokuItems}"
+                                width="600" height="600"/>
+
+</s:Application>

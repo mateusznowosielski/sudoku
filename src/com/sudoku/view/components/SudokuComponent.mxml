@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
+         xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <fx:Script><![CDATA[
+
+        import mx.collections.ArrayList;
+
+        [Bindable]
+        private var _items:ArrayList;
+        private var itemsDirty:Boolean = false;
+
+        public function set items(value:ArrayList):void
+        {
+            if (_items == value) {
+                return;
+            }
+
+            _items = value;
+            itemsDirty = true;
+
+            invalidateProperties();
+        }
+
+        override protected function commitProperties():void
+        {
+            super.commitProperties();
+
+            if(itemsDirty)
+            {
+                dataGroup.dataProvider = _items;
+                itemsDirty = false;
+            }
+        }
+
+    ]]></fx:Script>
+
+    <s:DataGroup id="dataGroup"
+                 width="100%" height="100%"
+                 itemRenderer="com.sudoku.view.renderers.SudokuItemRenderer">
+        <s:layout>
+            <s:TileLayout requestedColumnCount="9"
+                          columnWidth="{width/9}" rowHeight="{height/9}"
+                          horizontalGap="1" verticalGap="1" />
+        </s:layout>
+    </s:DataGroup>
+
+</s:BorderContainer>
